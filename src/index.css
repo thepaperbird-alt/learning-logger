@@ -1,0 +1,80 @@
+:root {
+  /* Monospace Font Stack */
+  --font-family: 'JetBrains Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+  --line-height: 1.6;
+  --font-weight: 400;
+
+  /* Light Theme Colors */
+  --color-bg: #f8fafc;
+  /* Slate 50 */
+  --color-text: #0f172a;
+  /* Slate 900 */
+  --color-text-secondary: #64748b;
+  /* Slate 500 */
+
+  --color-primary: #6366f1;
+  /* Indigo 500 */
+  --color-primary-hover: #4f46e5;
+  /* Indigo 600 */
+
+  /* Glass Card (White Frost) */
+  --color-card-bg: rgba(255, 255, 255, 0.65);
+  --color-card-border: rgba(255, 255, 255, 0.4);
+
+  /* Input */
+  --color-input-bg: rgba(255, 255, 255, 0.8);
+  --color-placeholder: #94a3b8;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  --shadow-hover: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+  --shadow-glow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+
+  --radius-md: 2px;
+  /* Sharper corners for monospace feel */
+  --radius-lg: 4px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  line-height: var(--line-height);
+  font-weight: var(--font-weight);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  /* Subtle mesh grid background for tech feel */
+  background-image:
+    radial-gradient(#cbd5e1 1px, transparent 1px),
+    radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  max-width: 1000px;
+  /* Readability width */
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
