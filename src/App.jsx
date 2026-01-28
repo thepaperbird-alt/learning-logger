@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TermInput from './components/TermInput';
 import TermList from './components/TermList';
-import { BookMarked } from 'lucide-react';
+
 import { supabase } from './supabase';
 
 function App() {
@@ -155,8 +155,8 @@ function App() {
         <div className="container">
             <header className="header">
                 <div className="logo">
-                    <BookMarked size={32} color="var(--color-primary)" />
-                    <h1>Learning Logger</h1>
+                    <img src="/apelog-logo.png" alt="Apelog Logo" style={{ height: '120px', width: 'auto' }} />
+                    <h1>Apelog</h1>
                 </div>
                 <p className="subtitle">Track your daily technical vocabulary.</p>
             </header>
@@ -172,7 +172,7 @@ function App() {
 
             <style>{`
         .header {
-          text-align: center;
+          text-align: left;
           margin-bottom: 3rem;
           padding-top: 2rem;
         }
@@ -180,21 +180,24 @@ function App() {
         .logo {
           display: flex;
           align-items: center;
-          justify-content: center;
-          gap: 1rem;
-          margin-bottom: 1rem;
+          justify-content: flex-start;
+          gap: 0.5rem;
+          margin-bottom: 0.5rem;
         }
 
         h1 {
-          font-size: 2.5rem;
+          font-family: system-ui, -apple-system, sans-serif;
+          font-size: 5rem;
           color: var(--color-text);
-          font-weight: 800;
+          font-weight: 900;
           letter-spacing: -0.05em;
+          line-height: 1;
         }
 
         .subtitle {
           color: var(--color-text-secondary);
           font-size: 1.125rem;
+          margin-left: 0.5rem;
         }
       `}</style>
         </div>
