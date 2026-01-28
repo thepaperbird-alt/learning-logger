@@ -199,6 +199,15 @@ function App() {
           font-size: 1.125rem;
           margin-left: 0.5rem;
         }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 3rem;
+            }
+            .logo img {
+                height: 80px !important; 
+            }
+        }
       `}</style>
         </div>
     );
