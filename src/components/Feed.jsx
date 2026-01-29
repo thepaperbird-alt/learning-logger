@@ -26,20 +26,21 @@ function Feed() {
     };
 
     const getCardStyle = (index) => {
-        const styles = [
-            'bg-white text-gray-900 border border-gray-100',
-            'bg-gradient-to-br from-orange-400 to-red-500 text-white border border-white-20 gradient-card',
-            'bg-white text-gray-900 border border-gray-100',
-            'bg-gradient-to-bl from-blue-400 to-indigo-600 text-white border border-white-20 gradient-card',
-            'bg-white text-gray-900 border border-gray-100',
-            'bg-white text-gray-900 border border-gray-100',
-            'bg-gradient-to-tr from-emerald-400 to-cyan-500 text-white border border-white-20 gradient-card',
+        // 8 distinct themes based on the reference image
+        const themes = [
+            'theme-yellow-green',   // Yellow Bg, Green Text
+            'theme-green-yellow',   // Green Bg, Yellow Text
+            'theme-blue-red',       // Light Blue Bg, Red Text
+            'theme-red-blue',       // Red Bg, Light Blue Text
+            'theme-pink-blue',      // Pink Bg, Dark Blue Text
+            'theme-blue-pink',      // Dark Blue Bg, Pink Text
+            'theme-green-orange',   // Light Green Bg, Orange Text
+            'theme-orange-green',   // Orange Bg, Light Green Text
         ];
-        return styles[index % styles.length];
+        return themes[index % themes.length];
     };
 
-    // SVG Noise Data URI
-    const noiseBg = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E")`;
+    // SVG Noise Data URI (Optional: Keep it for texture or remove for flat look? Reference looks flat. Removing noise for now as per "graphic" look)
 
     return (
         <div className="feed-container">
@@ -56,28 +57,32 @@ function Feed() {
             {loading ? (
                 <div className="loading">Loading terms...</div>
             ) : (
-                <div className="masonry-grid">
+                <div className="grid-mosaic">
                     {terms.map((term, index) => {
-                        const cardClass = getCardStyle(index);
-                        const isGradient = cardClass.includes('gradient');
+                        const themeClass = getCardStyle(index);
 
                         return (
-                            <div key={term.id} className={`card ${cardClass}`}>
-                                {isGradient && <div className="noise-overlay" style={{ backgroundImage: noiseBg }}></div>}
-
+                            <div key={term.id} className={`card ${themeClass}`}>
                                 <div className="card-content">
-                                    <div className="card-header">
+                                    <div className="card-top">
                                         <h2 className="term-word">{term.word}</h2>
+                                    </div>
+
+                                    <div className="card-middle">
+                                        <p className="term-def">
+                                            {term.definition}
+                                        </p>
+                                    </div>
+
+                                    <div className="card-bottom">
                                         {term.phonetic && (
-                                            <span className={`term-phonetic ${isGradient ? 'text-white/80' : 'text-gray-400'}`}>
+                                            <span className="term-phonetic">
                                                 {term.phonetic}
                                             </span>
                                         )}
+                                        {/* Optional: Add hex code or ID similar to reference */}
+                                        <span className="term-id">#{term.id.toString().substring(0, 6)}</span>
                                     </div>
-
-                                    <p className={`term-def ${isGradient ? 'text-white/95' : 'text-gray-600'}`}>
-                                        {term.definition}
-                                    </p>
                                 </div>
                             </div>
                         );
@@ -87,26 +92,28 @@ function Feed() {
 
             <style>{`
                 .feed-container {
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    padding: 4rem 2rem;
+                    max-width: 100%; /* Full width for mosaic */
+                    margin: 0;
+                    padding: 0;
                     min-height: 100vh;
-                    background-color: #fcfcfc;
-                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                    background-color: #fff;
+                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
                     -webkit-font-smoothing: antialiased;
                 }
 
                  .header {
                     text-align: left;
-                    margin-bottom: 5rem;
+                    padding: 4rem 2rem; /* Keep padding for header */
+                    max-width: 1200px;
+                    margin: 0 auto;
                 }
 
                 .logo-container {
-                    margin-bottom: 2rem; /* Increased gap */
+                    margin-bottom: 3rem;
                 }
 
                 h1 {
-                    font-size: 2rem; /* Smaller title */
+                    font-size: 2rem;
                     color: #111;
                     font-weight: 800;
                     letter-spacing: -0.04em;
@@ -117,117 +124,112 @@ function Feed() {
 
                 .subtitle {
                     color: #888;
-                    font-size: 0.9rem; /* Smaller subtitle */
+                    font-size: 0.9rem;
                     font-weight: 400;
                     letter-spacing: -0.01em;
-                    margin: 0; /* Align directly under */
+                    margin: 0;
                 }
 
-                .masonry-grid {
+                /* GRID LAYOUT */
+                .grid-mosaic {
                     display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); /* Smaller columns */
-                    gap: 1.5rem;
-                    align-items: start;
+                    /* Responsive columns: 1 on mobile, 2 sm, 3 md, 4 lg */
+                    grid-template-columns: repeat(1, 1fr);
+                    gap: 0; /* Zero gap */
+                    width: 100%;
                 }
+
+                @media (min-width: 640px) { .grid-mosaic { grid-template-columns: repeat(2, 1fr); } }
+                @media (min-width: 1024px) { .grid-mosaic { grid-template-columns: repeat(4, 1fr); } }
 
                 .card {
-                    padding: 1.75rem; /* Reduced padding */
-                    border-radius: 12px;
+                    aspect-ratio: 3/4; /* Vertical rectangle */
+                    padding: 2.5rem;
                     display: flex;
                     flex-direction: column;
-                    gap: 1rem;
-                    transition: all 0.3s ease;
-                    min-height: 180px;
                     position: relative;
                     overflow: hidden;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+                    border: none; /* No border */
+                    border-radius: 0; /* Square corners */
+                    transition: none;
                 }
                 
-                .card:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 12px 24px rgba(0,0,0,0.06);
-                }
-
                 .card-content {
-                    position: relative;
-                    z-index: 10;
+                    height: 100%;
                     display: flex;
                     flex-direction: column;
-                    gap: 0.75rem;
-                    height: 100%;
+                    justify-content: space-between;
                 }
 
-                .noise-overlay {
-                    position: absolute;
-                    inset: 0;
-                    z-index: 0;
-                    mix-blend-mode: overlay;
-                    pointer-events: none;
+                .card-top {
+                    margin-bottom: 1rem;
                 }
 
-                /* Typography & Hierarchy */
+                /* TYPOGRAPHY */
                 .term-word {
-                    font-size: 1.15rem; /* Significantly smaller */
-                    font-weight: 700;
+                    font-size: 2.75rem; /* Big and bold */
+                    font-weight: 900; /* Extra bold */
                     margin: 0;
-                    letter-spacing: -0.02em;
-                    line-height: 1.2;
-                    margin-bottom: 0.15rem;
-                }
-
-                .term-phonetic {
-                    font-family: 'SF Mono', 'Menlo', monospace;
-                    font-size: 0.75rem;
-                    opacity: 0.8;
-                    letter-spacing: 0;
+                    letter-spacing: -0.04em;
+                    line-height: 0.85; /* Tight leading */
+                    word-wrap: break-word; /* Prevent overflow */
+                    text-transform: capitalize; 
                 }
 
                 .term-def {
-                    font-size: 0.925rem; /* Smaller body text */
-                    line-height: 1.5;
+                    font-size: 0.9rem;
+                    line-height: 1.4;
+                    font-weight: 500;
                     margin: 0;
-                    font-weight: 450;
+                    opacity: 0.9;
+                    max-width: 90%;
                 }
 
-                /* Utility classes */
-                .bg-white { background-color: #ffffff; }
-                .text-gray-900 { color: #1a1a1a; }
-                .text-gray-600 { color: #555; }
-                .text-gray-400 { color: #999; }
-                .border { border-width: 1px; border-style: solid; }
-                .border-gray-100 { border-color: #f0f0f0; }
-                .border-white-20 { border-color: rgba(255, 255, 255, 0.2); }
+                .card-bottom {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-end;
+                    margin-top: auto;
+                    font-size: 0.75rem;
+                    font-weight: 700;
+                    opacity: 0.8;
+                    font-family: inherit; /* Keep main font */
+                }
 
-                /* Refined Gradients */
-                .bg-gradient-to-br { background: linear-gradient(135deg, #FF9A9E 0%, #FECFEEF 99%, #FECFEEF 100%); background: linear-gradient(135deg, #ff9a9e, #fecfef); /* Soft Peach/Pink */ } 
-                .bg-gradient-to-br.from-orange-400 { background: linear-gradient(135deg, #FF6B6B, #FF8E53); /* Vibrant Coral/Orange */ }
+                .term-phonetic {
+                    /* No specific style needed, inherits theme */
+                }
+
+                /* THEMES (Color Pairs) */
+                /* 1. Yellow / Green */
+                .theme-yellow-green { background-color: #FBBA16; color: #00492C; }
                 
-                .bg-gradient-to-bl { background: linear-gradient(225deg, #4facfe 0%, #00f2fe 100%); /* Blue Cyan */ }
-                .bg-gradient-to-tr { background: linear-gradient(45deg, #43e97b 0%, #38f9d7 100%); /* Spring Green */ }
+                /* 2. Green / Yellow */
+                .theme-green-yellow { background-color: #00492C; color: #FBBA16; }
 
-                /* Overwriting specific gradients for better "modern" look */
-                .bg-gradient-to-br { background: linear-gradient(150deg, #ff7e5f, #feb47b); } /* Warm */
-                .bg-gradient-to-bl { background: linear-gradient(210deg, #2b5876, #4e4376); } /* Deep Purple/Blue */
-                .bg-gradient-to-tr { background: linear-gradient(30deg, #0ba360, #3cba92); } /* Modern Green */
+                /* 3. Blue / Red */
+                .theme-blue-red { background-color: #9BCCDD; color: #E22028; }
 
-                .text-white { color: white; }
-                .text-white\/95 { color: rgba(255, 255, 255, 0.95); }
-                .text-white\/80 { color: rgba(255, 255, 255, 0.8); }
+                /* 4. Red / Blue */
+                .theme-red-blue { background-color: #E22028; color: #9BCCDD; }
+
+                /* 5. Pink / Dark Blue */
+                .theme-pink-blue { background-color: #E2B2B4; color: #1E4380; }
+
+                /* 6. Dark Blue / Pink */
+                .theme-blue-pink { background-color: #1E4380; color: #E2B2B4; }
+
+                /* 7. Light Green / Orange */
+                .theme-green-orange { background-color: #B1D8B8; color: #E85D04; }
+
+                /* 8. Orange / Light Green */
+                .theme-orange-green { background-color: #E85D04; color: #B1D8B8; }
+
 
                 @media (max-width: 600px) {
-                    .feed-container {
-                        padding: 2rem 1.5rem;
-                    }
-                    .masonry-grid {
-                        grid-template-columns: 1fr;
-                        gap: 1rem;
-                    }
-                    h1 {
-                        font-size: 1.75rem;
-                    }
-                    .header {
-                        margin-bottom: 3rem;
-                    }
+                    .header { padding: 2rem 1.5rem; }
+                    .term-word { font-size: 2.25rem; }
+                    .card { padding: 2rem; min-height: 300px; aspect-ratio: auto; } /* Allow height to grow on mobile */
                 }
             `}</style>
         </div>
