@@ -28,12 +28,12 @@ function Feed() {
     const getCardStyle = (index) => {
         const styles = [
             'bg-white text-gray-900 border border-gray-100',
-            'bg-gradient-to-br from-orange-400 to-red-500 text-white border-none gradient-card',
+            'bg-gradient-to-br from-orange-400 to-red-500 text-white border border-white-20 gradient-card',
             'bg-white text-gray-900 border border-gray-100',
-            'bg-gradient-to-bl from-blue-400 to-indigo-600 text-white border-none gradient-card',
+            'bg-gradient-to-bl from-blue-400 to-indigo-600 text-white border border-white-20 gradient-card',
             'bg-white text-gray-900 border border-gray-100',
             'bg-white text-gray-900 border border-gray-100',
-            'bg-gradient-to-tr from-emerald-400 to-cyan-500 text-white border-none gradient-card',
+            'bg-gradient-to-tr from-emerald-400 to-cyan-500 text-white border border-white-20 gradient-card',
         ];
         return styles[index % styles.length];
     };
@@ -44,11 +44,13 @@ function Feed() {
     return (
         <div className="feed-container">
             <header className="header">
-                <div className="logo">
+                <div className="logo-container">
                     <img src="/apelog-logo.png" alt="Apelog Logo" style={{ height: '60px', width: 'auto' }} />
-                    <h1>Apelog</h1>
                 </div>
-                <p className="subtitle">Visual dictionary of technical terms.</p>
+                <div>
+                    <h1>Apelog</h1>
+                    <p className="subtitle">Visual dictionary of technical terms.</p>
+                </div>
             </header>
 
             {loading ? (
@@ -99,12 +101,8 @@ function Feed() {
                     margin-bottom: 5rem;
                 }
 
-                .logo {
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start;
-                    gap: 0.75rem;
-                    margin-bottom: 0.25rem;
+                .logo-container {
+                    margin-bottom: 2rem; /* Increased gap */
                 }
 
                 h1 {
@@ -114,14 +112,15 @@ function Feed() {
                     letter-spacing: -0.04em;
                     line-height: 1;
                     margin: 0;
+                    margin-bottom: 0.5rem;
                 }
 
                 .subtitle {
                     color: #888;
                     font-size: 0.9rem; /* Smaller subtitle */
-                    margin-left: 0.2rem;
                     font-weight: 400;
                     letter-spacing: -0.01em;
+                    margin: 0; /* Align directly under */
                 }
 
                 .masonry-grid {
@@ -195,9 +194,9 @@ function Feed() {
                 .text-gray-900 { color: #1a1a1a; }
                 .text-gray-600 { color: #555; }
                 .text-gray-400 { color: #999; }
-                .border { border-width: 1px; }
+                .border { border-width: 1px; border-style: solid; }
                 .border-gray-100 { border-color: #f0f0f0; }
-                .border-none { border: none; }
+                .border-white-20 { border-color: rgba(255, 255, 255, 0.2); }
 
                 /* Refined Gradients */
                 .bg-gradient-to-br { background: linear-gradient(135deg, #FF9A9E 0%, #FECFEEF 99%, #FECFEEF 100%); background: linear-gradient(135deg, #ff9a9e, #fecfef); /* Soft Peach/Pink */ } 
