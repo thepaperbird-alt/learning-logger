@@ -50,7 +50,7 @@ function Feed() {
                     <p className="subtitle">Visual dictionary of technical terms.</p>
                 </div>
                 <div className="logo-container">
-                    <img src="/apelog-logo.png" alt="Apelog Logo" style={{ height: '60px', width: 'auto' }} />
+                    <img src="/apelog-logo.png" alt="Apelog Logo" style={{ height: '80px', width: 'auto' }} />
                 </div>
             </header>
 
@@ -105,10 +105,10 @@ function Feed() {
                     display: flex;
                     justify-content: space-between;
                     align-items: flex-start;
-                    padding: 4rem 2rem;
+                    padding: 4rem 2rem 1rem;
                     max-width: 1200px;
                     margin: 0 auto;
-                    margin-bottom: 2rem;
+                    margin-bottom: 0px;
                 }
 
                 .logo-container {
@@ -180,7 +180,7 @@ function Feed() {
                 }
 
                 .term-def {
-                    font-size: 0.825rem; /* Reduced size */
+                    font-size: 0.75rem; /* Reduced size */
                     line-height: 1.3; /* Reduced line height */
                     font-weight: 500;
                     margin: 0;
