@@ -45,12 +45,12 @@ function Feed() {
     return (
         <div className="feed-container">
             <header className="header">
-                <div className="logo-container">
-                    <img src="/apelog-logo.png" alt="Apelog Logo" style={{ height: '60px', width: 'auto' }} />
-                </div>
                 <div>
                     <h1>Apelog</h1>
                     <p className="subtitle">Visual dictionary of technical terms.</p>
+                </div>
+                <div className="logo-container">
+                    <img src="/apelog-logo.png" alt="Apelog Logo" style={{ height: '60px', width: 'auto' }} />
                 </div>
             </header>
 
@@ -102,14 +102,17 @@ function Feed() {
                 }
 
                  .header {
-                    text-align: left;
-                    padding: 4rem 2rem; /* Keep padding for header */
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    padding: 4rem 2rem;
                     max-width: 1200px;
                     margin: 0 auto;
+                    margin-bottom: 2rem;
                 }
 
                 .logo-container {
-                    margin-bottom: 3rem;
+                    /* No margin needed */
                 }
 
                 h1 {
@@ -177,8 +180,8 @@ function Feed() {
                 }
 
                 .term-def {
-                    font-size: 0.9rem;
-                    line-height: 1.4;
+                    font-size: 0.825rem; /* Reduced size */
+                    line-height: 1.3; /* Reduced line height */
                     font-weight: 500;
                     margin: 0;
                     opacity: 0.9;
