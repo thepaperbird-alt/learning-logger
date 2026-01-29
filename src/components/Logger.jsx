@@ -155,7 +155,7 @@ function Logger() {
             <header className="header">
                 <div className="logo">
                     <img src="/apelog-logo.png" alt="Apelog Logo" style={{ height: '120px', width: 'auto' }} />
-                    <h1>Apelog</h1>
+                    <h1>Apelogger</h1>
                 </div>
                 <p className="subtitle">Track your daily technical vocabulary.</p>
             </header>
