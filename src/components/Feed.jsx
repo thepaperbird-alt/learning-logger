@@ -65,10 +65,11 @@ function Feed() {
                             <div key={term.id} className={`card ${themeClass}`}>
                                 <div className="card-content">
                                     <div className="card-top">
-                                        <h2 className="term-word">{term.word}</h2>
+                                        <span className="term-id">#{term.id.toString().substring(0, 6)}</span>
                                     </div>
 
                                     <div className="card-middle">
+                                        <h2 className="term-word">{term.word}</h2>
                                         <p className="term-def">
                                             {term.definition}
                                         </p>
@@ -80,8 +81,6 @@ function Feed() {
                                                 {term.phonetic}
                                             </span>
                                         )}
-                                        {/* Optional: Add hex code or ID similar to reference */}
-                                        <span className="term-id">#{term.id.toString().substring(0, 6)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -169,23 +168,32 @@ function Feed() {
                 }
 
                 /* TYPOGRAPHY */
+                .term-id {
+                    font-size: 3.5rem;
+                    font-weight: 800;
+                    line-height: 1;
+                    letter-spacing: -0.03em;
+                    opacity: 0.9;
+                    display: block;
+                }
+
                 .term-word {
-                    font-size: 2.75rem; /* Big and bold */
-                    font-weight: 900; /* Extra bold */
-                    margin: 0;
-                    letter-spacing: -0.04em;
-                    line-height: 0.85; /* Tight leading */
+                    font-size: 2.25rem; /* Reduced size */
+                    font-weight: 800; /* Extra bold */
+                    margin: 0 0 0.5rem 0;
+                    letter-spacing: -0.03em;
+                    line-height: 1.1;
                     word-wrap: break-word; /* Prevent overflow */
                     text-transform: capitalize; 
                 }
 
                 .term-def {
-                    font-size: 0.75rem; /* Reduced size */
-                    line-height: 1.3; /* Reduced line height */
+                    font-size: 1rem;
+                    line-height: 1.4;
                     font-weight: 500;
                     margin: 0;
                     opacity: 0.9;
-                    max-width: 90%;
+                    max-width: 100%;
                 }
 
                 .card-bottom {
@@ -231,7 +239,9 @@ function Feed() {
 
                 @media (max-width: 600px) {
                     .header { padding: 2rem 1.5rem; }
-                    .term-word { font-size: 2.25rem; }
+                    .term-id { font-size: 2.75rem; }
+                    .term-word { font-size: 1.75rem; }
+                    .term-def { font-size: 0.9rem; }
                     .card { padding: 2rem; min-height: 300px; aspect-ratio: auto; } /* Allow height to grow on mobile */
                 }
             `}</style>
