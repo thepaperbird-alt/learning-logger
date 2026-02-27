@@ -169,7 +169,7 @@ function Feed() {
 
                 /* TYPOGRAPHY */
                 .term-id {
-                    font-size: 3.5rem;
+                    font-size: 4px;
                     font-weight: 800;
                     line-height: 1;
                     letter-spacing: -0.03em;
@@ -178,7 +178,7 @@ function Feed() {
                 }
 
                 .term-word {
-                    font-size: 2.25rem; /* Reduced size */
+                    font-size: 20px;
                     font-weight: 800; /* Extra bold */
                     margin: 0 0 0.5rem 0;
                     letter-spacing: -0.03em;
@@ -188,7 +188,7 @@ function Feed() {
                 }
 
                 .term-def {
-                    font-size: 1rem;
+                    font-size: 12px;
                     line-height: 1.4;
                     font-weight: 500;
                     margin: 0;
@@ -239,9 +239,6 @@ function Feed() {
 
                 @media (max-width: 600px) {
                     .header { padding: 2rem 1.5rem; }
-                    .term-id { font-size: 2.75rem; }
-                    .term-word { font-size: 1.75rem; }
-                    .term-def { font-size: 0.9rem; }
                     .card { padding: 2rem; min-height: 300px; aspect-ratio: auto; } /* Allow height to grow on mobile */
                 }
             `}</style>
